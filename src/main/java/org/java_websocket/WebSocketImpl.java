@@ -751,7 +751,7 @@ public class WebSocketImpl implements WebSocket {
   }
 
   private void write(ByteBuffer buf) {
-    // should check isTraceEnabled() to avoid performance slow because of log
+    // should check isTraceEnabled() to avoid performance down because of log
     if (log.isTraceEnabled()) {
       log.trace("write({}): {}", buf.remaining(),
               buf.remaining() > 1000 ? "too big to display" : new String(buf.array()));
