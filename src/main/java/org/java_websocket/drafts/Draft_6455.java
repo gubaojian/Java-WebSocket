@@ -517,7 +517,8 @@ public class Draft_6455 extends Draft {
         maskLongkey.putInt(maskInt);
         maskLongkey.putInt(maskInt);
         buf.putInt(maskInt);
-        int length = mes.remaining() / 8;
+        // n / 8 eq n >> 3
+        int length = mes.remaining() >> 3;
         long maskLong = maskLongkey.getLong(0);
         for (int i = 0; i < length; i++) {
           buf.putLong(mes.getLong() ^ maskLong);
