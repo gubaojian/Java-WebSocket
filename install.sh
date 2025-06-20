@@ -2,4 +2,4 @@ export GPG_TTY=$(tty)
 mvn clean package -P gpg -DskipTests
 ## https://central.sonatype.com/publishing/deployments
 ## password gubaojian
-mvn deploy -DskipTests -P gpg -Dgpg.batch=true
+mvn install -DskipTests -P gpg -Dgpg.batch=true
