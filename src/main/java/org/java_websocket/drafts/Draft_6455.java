@@ -513,16 +513,17 @@ public class Draft_6455 extends Draft {
       int maskInt = reuseableRandom.nextInt();
       if (useFastMask) {
         //default ByteOrder.BIG_ENDIAN
-        ByteBuffer maskkey = ByteBuffer.allocate(8);
-        maskkey.putInt(maskInt);
-        maskkey.putInt(maskInt);
+        ByteBuffer maskLongkey = ByteBuffer.allocate(8);
+        maskLongkey.putInt(maskInt);
+        maskLongkey.putInt(maskInt);
+        buf.putInt(maskInt);
         int length = mes.remaining() / 8;
-        long maskLong = maskkey.getLong(0);
+        long maskLong = maskLongkey.getLong(0);
         for (int i = 0; i < length; i++) {
           buf.putLong(mes.getLong() ^ maskLong);
         }
         for (int i = 0; mes.hasRemaining(); i++) {
-          buf.put((byte) (mes.get() ^ maskkey.get(i % 4)));
+          buf.put((byte) (mes.get() ^ maskLongkey.get(i % 4)));
         }
       } else {
         ByteBuffer maskkey = ByteBuffer.allocate(4);

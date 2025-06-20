@@ -25,11 +25,11 @@
 
 package org.java_websocket.framing;
 
+import java.nio.ByteBuffer;
 import org.java_websocket.enums.Opcode;
 import org.java_websocket.exceptions.InvalidDataException;
 import org.java_websocket.util.Charsetfunctions;
 
-import java.nio.ByteBuffer;
 
 /**
  * Class to represent a text frames
@@ -37,6 +37,7 @@ import java.nio.ByteBuffer;
 public class TextFrame extends DataFrame {
 
   boolean hasCheckUTF8PlayLoad = false;
+
   /**
    * constructor which sets the opcode of this frame to text
    */
