@@ -523,14 +523,16 @@ public class Draft_6455 extends Draft {
           buf.putLong(mes.getLong() ^ maskLong);
         }
         for (int i = 0; mes.hasRemaining(); i++) {
-          buf.put((byte) (mes.get() ^ maskLongkey.get(i % 4)));
+          // x % 2^n 为 x & (2^n - 1)
+          buf.put((byte) (mes.get() ^ maskLongkey.get(i & 3)));
         }
       } else {
         ByteBuffer maskkey = ByteBuffer.allocate(4);
         maskkey.putInt(maskInt);
         buf.put(maskkey.array());
         for (int i = 0; mes.hasRemaining(); i++) {
-          buf.put((byte) (mes.get() ^ maskkey.get(i % 4)));
+          // x % 2^n 为 x & (2^n - 1)
+          buf.put((byte) (mes.get() ^ maskkey.get(i & 3)));
         }
       }
     } else {
