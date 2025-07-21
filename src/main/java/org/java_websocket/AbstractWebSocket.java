@@ -110,6 +110,13 @@ public abstract class AbstractWebSocket extends WebSocketAdapter {
   private int receiveBufferSize = 0;
 
   /**
+   * TCP socket send buffer size that will be used for sockets (zero means use system default)
+   *
+   * @since 1.6.1
+   */
+  private int sendBufferSize = 0;
+
+  /**
    * Used for internal buffer allocations when the socket buffer size is not specified.
    */
   protected static int DEFAULT_READ_BUFFER_SIZE = 65536;
@@ -360,17 +367,41 @@ public abstract class AbstractWebSocket extends WebSocketAdapter {
   }
 
   /**
+   * Returns the TCP send buffer size that will be used for sockets (or zero, if not explicitly set).
+   * @see java.net.Socket#setSendBufferSize(int)
+   *
+   * @since 1.5.7
+   */
+  public int getSendBufferSize() {
+    return sendBufferSize;
+  }
+
+  /**
    * Sets the TCP receive buffer size that will be used for sockets.
    * If this is not explicitly set (or set to zero), the system default is used.
    * @see java.net.Socket#setReceiveBufferSize(int)
    *
-   * @since 1.5.7
+   * @since 1.6.1
    */
   public void setReceiveBufferSize(int receiveBufferSize) {
     if (receiveBufferSize < 0) {
       throw new IllegalArgumentException("buffer size < 0");
     }
     this.receiveBufferSize = receiveBufferSize;
+  }
+
+
+  /**
+   * Sets the TCP send buffer size that will be used for write sockets.
+   * If this is not explicitly set (or set to zero), the system default is used.
+   *
+   * @since 1.6.1
+   */
+  public void setSendBufferSize(int sendBufferSize) {
+    if (sendBufferSize < 0) {
+      throw new IllegalArgumentException("buffer size < 0");
+    }
+    this.sendBufferSize = sendBufferSize;
   }
 
 }

@@ -851,7 +851,11 @@ public abstract class WebSocketClient extends AbstractWebSocket implements Runna
      * @throws IOException if write or flush did not work
      */
     private void runWriteData() throws IOException {
-      BufferedOutputStream bufferedInputStream = new BufferedOutputStream(ostream);
+      int bufferSize = 64*1024;
+      if (getSendBufferSize() > 0 ) {
+          bufferSize = Math.max(bufferSize, getSendBufferSize());
+      }
+      BufferedOutputStream bufferedInputStream = new BufferedOutputStream(ostream, bufferSize);
       try {
         while (!Thread.interrupted()) {
           ByteBuffer buffer = engine.outQueue.take();
